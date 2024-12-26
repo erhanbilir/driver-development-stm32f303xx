@@ -1,0 +1,4 @@
+../myDrivers/Src/RCC.c:12:10:RCC_GetSystemClock	16	static
+../myDrivers/Src/RCC.c:30:10:RCC_GetHClock	24	static
+../myDrivers/Src/RCC.c:47:10:RCC_GetP1Clock	24	static
+../myDrivers/Src/RCC.c:64:10:RCC_GetP2Clock	24	static
