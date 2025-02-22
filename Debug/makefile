@@ -34,34 +34,34 @@ $(wildcard ../makefile.init) \
 $(wildcard ../makefile.targets) \
 
 
-BUILD_ARTIFACT_NAME := driver_development
+BUILD_ARTIFACT_NAME := driver_development_stm32f303xx
 BUILD_ARTIFACT_EXTENSION := elf
 BUILD_ARTIFACT_PREFIX :=
 BUILD_ARTIFACT := $(BUILD_ARTIFACT_PREFIX)$(BUILD_ARTIFACT_NAME)$(if $(BUILD_ARTIFACT_EXTENSION),.$(BUILD_ARTIFACT_EXTENSION),)
 
 # Add inputs and outputs from these tool invocations to the build variables 
 EXECUTABLES += \
-driver_development.elf \
+driver_development_stm32f303xx.elf \
 
 MAP_FILES += \
-driver_development.map \
+driver_development_stm32f303xx.map \
 
 SIZE_OUTPUT += \
 default.size.stdout \
 
 OBJDUMP_LIST += \
-driver_development.list \
+driver_development_stm32f303xx.list \
 
 
 # All Target
 all: main-build
 
 # Main-build Target
-main-build: driver_development.elf secondary-outputs
+main-build: driver_development_stm32f303xx.elf secondary-outputs
 
 # Tool invocations
-driver_development.elf driver_development.map: $(OBJS) $(USER_OBJS) C:\Users\erhan\STM32CubeIDE\driver_develop_course\driver_development\STM32F303RETX_FLASH.ld makefile objects.list $(OPTIONAL_TOOL_DEPS)
-	arm-none-eabi-gcc -o "driver_development.elf" @"objects.list" $(USER_OBJS) $(LIBS) -mcpu=cortex-m4 -T"C:\Users\erhan\STM32CubeIDE\driver_develop_course\driver_development\STM32F303RETX_FLASH.ld" --specs=nosys.specs -Wl,-Map="driver_development.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+driver_development_stm32f303xx.elf driver_development_stm32f303xx.map: $(OBJS) $(USER_OBJS) C:\Users\erhan\STM32CubeIDE\driver_develop_course\driver_development\STM32F303RETX_FLASH.ld makefile objects.list $(OPTIONAL_TOOL_DEPS)
+	arm-none-eabi-gcc -o "driver_development_stm32f303xx.elf" @"objects.list" $(USER_OBJS) $(LIBS) -mcpu=cortex-m4 -T"C:\Users\erhan\STM32CubeIDE\driver_develop_course\driver_development\STM32F303RETX_FLASH.ld" --specs=nosys.specs -Wl,-Map="driver_development_stm32f303xx.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
 	@echo 'Finished building target: $@'
 	@echo ' '
 
@@ -70,14 +70,14 @@ default.size.stdout: $(EXECUTABLES) makefile objects.list $(OPTIONAL_TOOL_DEPS)
 	@echo 'Finished building: $@'
 	@echo ' '
 
-driver_development.list: $(EXECUTABLES) makefile objects.list $(OPTIONAL_TOOL_DEPS)
-	arm-none-eabi-objdump -h -S $(EXECUTABLES) > "driver_development.list"
+driver_development_stm32f303xx.list: $(EXECUTABLES) makefile objects.list $(OPTIONAL_TOOL_DEPS)
+	arm-none-eabi-objdump -h -S $(EXECUTABLES) > "driver_development_stm32f303xx.list"
 	@echo 'Finished building: $@'
 	@echo ' '
 
 # Other Targets
 clean:
-	-$(RM) default.size.stdout driver_development.elf driver_development.list driver_development.map
+	-$(RM) default.size.stdout driver_development_stm32f303xx.elf driver_development_stm32f303xx.list driver_development_stm32f303xx.map
 	-@echo ' '
 
 secondary-outputs: $(SIZE_OUTPUT) $(OBJDUMP_LIST)

@@ -1,4 +1,4 @@
 ../myDrivers/Src/USART.c:19:6:USART_PeriphCmd	16	static
-../myDrivers/Src/USART.c:39:6:USART_Init	40	static
-../myDrivers/Src/USART.c:107:6:USART_TransmitData	32	static
-../myDrivers/Src/USART.c:170:14:USART_GetFlagStatus	16	static
+../myDrivers/Src/USART.c:39:6:USART_Init	32	static
+../myDrivers/Src/USART.c:113:6:USART_TransmitData	32	static
+../myDrivers/Src/USART.c:176:14:USART_GetFlagStatus	16	static

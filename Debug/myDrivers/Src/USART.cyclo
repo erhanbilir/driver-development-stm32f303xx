@@ -1,4 +1,4 @@
 ../myDrivers/Src/USART.c:19:6:USART_PeriphCmd	2
 ../myDrivers/Src/USART.c:39:6:USART_Init	3
-../myDrivers/Src/USART.c:107:6:USART_TransmitData	11
-../myDrivers/Src/USART.c:170:14:USART_GetFlagStatus	1
+../myDrivers/Src/USART.c:113:6:USART_TransmitData	11
+../myDrivers/Src/USART.c:176:14:USART_GetFlagStatus	1

@@ -39,8 +39,6 @@ void USART_PeriphCmd(USART_HandleTypeDef_t *USART_Handle, FunctionalState_t stat
 void USART_Init(USART_HandleTypeDef_t *USART_Handle)
 {
 	uint32_t periphClock = 0;
-	uint32_t mantissaPart = 0;
-	uint32_t fractionPart = 0;
 	uint32_t USART_DIV_VALUE = 0;
 	/******** Mode & WordLength & Parity & OverSampling ********/
 
@@ -81,15 +79,23 @@ void USART_Init(USART_HandleTypeDef_t *USART_Handle)
 		periphClock = RCC_GetP1Clock();
 	}
 
+
+
 	if( USART_Handle->Init.OverSampling == USART_OVERSAMPLE_8 )
 	{
-		USART_Handle->Instance->BRR = __USART_BRR_OVERSAMPLING_8(periphClock, USART_Handle->Init.BaudRate);
-		USART_DIV_VALUE = __USART_DIV_VALUE_16(periphClock, USART_Handle->Init.BaudRate);
+		USART_DIV_VALUE = __USART_DIV_VALUE_8(periphClock, USART_Handle->Init.BaudRate);
+		tempReg = (USART_DIV_VALUE & 0xFFF0);
+		tempReg |= ((USART_DIV_VALUE & 0x000FU) >> 1U);
 	}
 	else
 	{
-		USART_Handle->Instance->BRR = __USART_BRR_OVERSAMPLING_16(periphClock,  USART_Handle->Init.BaudRate);
+		USART_DIV_VALUE = __USART_DIV_VALUE_16(periphClock, USART_Handle->Init.BaudRate);
+		tempReg = USART_DIV_VALUE;
 	}
+
+	USART_Handle->Instance->BRR = tempReg;
+
+
 }
 
 /*

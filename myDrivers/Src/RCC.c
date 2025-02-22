@@ -18,10 +18,10 @@ uint32_t RCC_GetSystemClock(void)
 
 	switch(clkSource)
 	{
-		case 0 : SystemCoreClock = 16000000; break; // HSI
-		case 1 : SystemCoreClock = 8000000; break;  // HSE
+		case 0 : SystemCoreClock = 8000000; break; // HSI
+		case 1 : SystemCoreClock = 32000000; break;  // HSE
 
-		default : SystemCoreClock = 16000000;
+		default : SystemCoreClock = 8000000;
 	}
 
 	return SystemCoreClock;

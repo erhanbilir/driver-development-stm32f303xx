@@ -65,9 +65,9 @@
 #define USART_HW_CTS			( (uint32_t)(0x00000200) )
 #define USART_HW_CTS_RTS		( (uint32_t)(0x00000300) )
 
-#define __USART_BRR_OVERSAMPLING_8(__PCLK__, __BAUDRATE__)				(1)
-#define __USART_DIV_VALUE_16(__PCLK__, __BAUDRATE__)					( 25 * (__PCLK__) ) / ( 4 * (__BAUDRATE__) )
-#define __USART_BRR_OVERSAMPLING_16(__PCLK__, __BAUDRATE__)				(1)
+
+#define __USART_DIV_VALUE_8(__PCLK__, __BAUDRATE__)						((( 2U * (__PCLK__) ) + ( (__BAUDRATE__) / 2U )) / (__BAUDRATE__))
+#define __USART_DIV_VALUE_16(__PCLK__, __BAUDRATE__)					((((__PCLK__) ) + ( (__BAUDRATE__) / 2U )) / (__BAUDRATE__))
 
 typedef struct
 {
