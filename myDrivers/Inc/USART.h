@@ -80,15 +80,21 @@ typedef struct
 	uint32_t HardwareFlowControl;		/*!< HardwareFlowControl Modes @def_group HardwareFlowControl_Modes */
 }USART_InitTypeDef_t;
 
-typedef struct
+typedef struct __USART_HandleTypeDef_t
 {
 	USART_TypeDef_t* Instance;
 	USART_InitTypeDef_t Init;
+	uint8_t *pTxBuffer;
+	uint16_t TxBufferSize;
+	uint8_t TxStatus;
+	void(*TxISR_Function)(struct __USART_HandleTypeDef_t *USART_Handle);
 }USART_HandleTypeDef_t;
 
 void USART_Init(USART_HandleTypeDef_t *USART_Handle);
 void USART_PeriphCmd(USART_HandleTypeDef_t *USART_Handle, FunctionalState_t stateOfUSART);
 void USART_TransmitData(USART_HandleTypeDef_t *USART_Handle, uint8_t *pData, uint16_t dataSize);
+void USART_ReceiveData(USART_HandleTypeDef_t *USART_Handle, uint8_t *pBuffer, uint16_t dataSize);
+void USART_TransmitData_IT(USART_HandleTypeDef_t *USART_Handle, uint8_t *pData, uint16_t dataSize);
 FlagStatus_t USART_GetFlagStatus(USART_HandleTypeDef_t *USART_Handle, uint16_t USART_Flag);
 
 #endif /* INC_USART_H_ */

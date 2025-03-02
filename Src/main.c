@@ -19,7 +19,7 @@
 #include <stm32f303xx.h>
 
 static void GPIO_LedConfig();
-static void GPIO_ButtonConfig();
+//static void GPIO_ButtonConfig();
 //static void GPIO_LockControl();
 static void GPIO_ButtonInterruptConfig();
 static void SPI_Config();
@@ -28,16 +28,22 @@ static void SPI_GPIO_Config();
 SPI_HandleTypeDef_t SPI_HandleStructure;
 USART_HandleTypeDef_t USART_Handle;
 
+char msgToSend[] = "Hello Are You There!\n";
 void EXTI15_10_IRQHandler()
 {
-	char msgToSend[] = "Hello World!\n";
+
 	if(EXTI->PR1 & (0x1 << 0xDU))
 	{
-		EXTI->PR1 |= (0x0U << 0xDU);
-		SPI_TransmitData(&SPI_HandleStructure, (uint8_t*)msgToSend, strlen(msgToSend));
+		EXTI->PR1 |= (0x1U << 0xDU);
+		SPI_TransmitData_IT(&SPI_HandleStructure, (uint8_t*)msgToSend, strlen(msgToSend));
 	}
 
 	//GPIO_TogglePin(GPIOA, GPIO_PIN_5);
+}
+
+void SPI1_IRQHandler()
+{
+	SPI_InterruptHandler(&SPI_HandleStructure);
 }
 
 int main(void)
@@ -45,7 +51,7 @@ int main(void)
 	GPIO_LedConfig();
 	//GPIO_WritePin(GPIOA, GPIO_PIN_5, GPIO_Pin_Reset);
 
-	GPIO_ButtonConfig();
+	//GPIO_ButtonConfig();
 	//GPIO_LockPin(GPIOC, GPIO_PIN_13);
 	//GPIO_LockControl();
 	GPIO_ButtonInterruptConfig();
@@ -54,8 +60,8 @@ int main(void)
 
 	SPI_Config();
 
-	USART_Handle.Instance = USART2;
-	USART_Handle.Init.BaudRate = 115200;
+	//USART_Handle.Instance = USART2;
+	//USART_Handle.Init.BaudRate = 115200;
 
 //	while(1)
 //	{
@@ -81,12 +87,9 @@ static void GPIO_LedConfig()
 
 	GPIO_Init(GPIOA, &GPIO_Config);
 	memset(&GPIO_Config, 0, sizeof(GPIO_Config));
-
-
-	EXTI_LineConfig(EXTI_PortSource_GPIOC, EXTI_LineSource_13);
 }
 
-static void GPIO_ButtonConfig()
+/*static void GPIO_ButtonConfig()
 {
 	RCC_GPIOC_CLK_EN();
 
@@ -97,7 +100,7 @@ static void GPIO_ButtonConfig()
 
 	GPIO_Init(GPIOC, &GPIO_Config);
 	memset(&GPIO_Config, 0, sizeof(GPIO_Config));
-}
+}*/
 
 /*static void GPIO_LockControl()
 {
@@ -136,14 +139,16 @@ static void SPI_Config()
 	SPI_HandleStructure.Init.BusConfig = SPI_BUS_FullDuplex;
 	SPI_HandleStructure.Init.CPHA = SPI_CPHA_FIRST;
 	SPI_HandleStructure.Init.CPOL = SPI_CPOL_LOW;
+	SPI_HandleStructure.Init.DataSize = SPI_DATASIZE_8BIT;
 	SPI_HandleStructure.Init.FrameFormat = SPI_FRAMEFORMAT_MSB;
 	SPI_HandleStructure.Init.Mode = SPI_MODE_MASTER;
 	SPI_HandleStructure.Init.SSM_Cmd = SPI_SSM_ENABLE;
 
-	SPI_PeriphCmd(&SPI_HandleStructure, ENABLE);
-
 	SPI_Init(&SPI_HandleStructure);
 
+	NVIC_EnableInterrupt(SPI1_IRQNumber);
+
+	SPI_PeriphCmd(&SPI_HandleStructure, ENABLE);
 }
 
 static void SPI_GPIO_Config()

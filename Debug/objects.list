@@ -1,4 +1,4 @@
-"./Src/USART_Test.o"
+"./Src/main.o"
 "./Src/syscalls.o"
 "./Src/sysmem.o"
 "./Startup/startup_stm32f303retx.o"

@@ -10,6 +10,7 @@
 
 #include <stdint.h>
 #include <string.h>
+#include <stddef.h>
 
 /*
  * Microprocessor Defines
@@ -44,7 +45,9 @@ typedef enum
 	EXTI1_IRQNumber = 7,
 	EXTI2_IRQNumber = 8,
 	EXTI3_IRQNumber = 9,
-	EXTI15_10_IRQNumber = 40
+	EXTI15_10_IRQNumber = 40,
+	SPI1_IRQNumber = 35,
+	SPI2_IRQNumber = 36
 }IRQNumber_TypeDef_t;
 
 /*
@@ -242,14 +245,20 @@ typedef struct
 #define UART5						( (USART_TypeDef_t *)  (UART5_BASE_ADDR))
 
 /*
- * SPI Flag Definitions
+ * SPI Flag and Bit Definitions
  */
-#define SPI_CR1_SPE					(6U)
-
 #define SPI_SR_TXE					(1U)
+#define SPI_SR_RXNE					(0U)
 #define SPI_SR_BSY					(7U)
 
+#define SPI_CR1_SPE					(6U)
+
+#define SPI_CR2_TXEIE				(7U)
+#define SPI_CR2_RXNEIE				(6U)
+#define SPI_CR2_DS					(8U) // DS[3:0]
+
 #define SPI_TXE_FLAG				(0x1U << SPI_SR_TXE)
+#define SPI_RXNE_FLAG				(0x1U << SPI_SR_RXNE)
 #define SPI_BSY_FLAG				(0x1U << SPI_SR_BSY)
 
 /*
@@ -260,9 +269,11 @@ typedef struct
 
 #define USART_ISR_TXE				(7U)
 #define USART_ISR_TC				(6U)
+#define USART_ISR_RXNE				(5U)
 
 #define USART_TXE_FLAG				(0x1U << USART_ISR_TXE)
 #define USART_TC_FLAG				(0x1U << USART_ISR_TC)
+#define USART_RXNE_FLAG				(0x1U << USART_ISR_RXNE)
 
 /*
  * Bit Definitions

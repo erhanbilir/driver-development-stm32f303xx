@@ -94,8 +94,6 @@ void USART_Init(USART_HandleTypeDef_t *USART_Handle)
 	}
 
 	USART_Handle->Instance->BRR = tempReg;
-
-
 }
 
 /*
@@ -112,56 +110,106 @@ void USART_Init(USART_HandleTypeDef_t *USART_Handle)
 
 void USART_TransmitData(USART_HandleTypeDef_t *USART_Handle, uint8_t *pData, uint16_t dataSize)
 {
-	// 9 bit = frame no parity // 9 bit = frame yes parity
-	// 8 bit = frame no parity // 8 bit = frame yes parity
-	// 7 bit = frame no parity // 7 bit = frame yes parity
 
-	uint16_t *data9Bits;
-	uint8_t *data6Bits;
+	uint16_t *data16Bits;
+	uint8_t *data8Bits;
 
 	if( (USART_Handle->Init.WordLength == USART_WORDLENGTH_9Bits) && (USART_Handle->Init.Parity == USART_PARITY_NONE) )
 	{
-		data9Bits = (uint16_t *)pData;
-	}
-	else if( (USART_Handle->Init.WordLength == USART_WORDLENGTH_7Bits) && (USART_Handle->Init.Parity != USART_PARITY_NONE) )
-	{
-		data9Bits = NULL;
-		data6Bits = pData;
+		data16Bits = (uint16_t *)pData;
+		data8Bits = NULL;
 	}
 	else
 	{
-		data9Bits = NULL;
-		data6Bits = NULL;
+		data16Bits = NULL;
+		data8Bits = pData;
 	}
 
 	while( dataSize > 0 )
 	{
 		while( !(USART_GetFlagStatus(USART_Handle, USART_TXE_FLAG)) );
 
-		/* 9 bits data no parity is for ELSE condition,
-		 * 6 bits data with parity is for ELSE IF condition,
-		 * for other you will be in IF case */
-		if( data9Bits == NULL && data6Bits == NULL)
+		/* 9 bits data no parity is for ELSE condition, for others you will be in IF case */
+		if( data16Bits == NULL)
 		{
-			USART_Handle->Instance->TDR = (uint8_t)(*pData & (0xFFU) );
-			pData++;
-			dataSize--;
-		}
-		else if( data6Bits != NULL)
-		{
-			USART_Handle->Instance->TDR = (uint8_t)(*data6Bits & (0x3FU) );
-			data6Bits++;
+			USART_Handle->Instance->TDR = (uint8_t)(*data8Bits & (0xFFU) );
+			data8Bits++;
 			dataSize--;
 		}
 		else
 		{
-			USART_Handle->Instance->TDR = (uint16_t)(*data9Bits & (0x01FFU) );
-			data9Bits++;
-			dataSize -=2;
+			USART_Handle->Instance->TDR = (uint16_t)(*data16Bits & (0x01FFU) );
+			data16Bits++;
+			dataSize-=2;
 		}
 	}
 	while( !(USART_GetFlagStatus(USART_Handle, USART_TC_FLAG)) );
 }
+
+/*
+ *  @brief	USART_ReceiveData, receives data
+ *
+ *  @param	USART_Handle = User config structure
+ *
+ *	@param  pBuffer = Address of data to store
+ *
+ *	@param dataSize = Length of your data in bytes
+ *
+ *  @retval None
+ */
+
+void USART_ReceiveData(USART_HandleTypeDef_t *USART_Handle, uint8_t *pBuffer, uint16_t dataSize)
+{
+	uint16_t *p16BitsBuffer;
+	uint8_t *p8BitsBuffer;
+
+	if( (USART_Handle->Init.WordLength == USART_WORDLENGTH_9Bits) && (USART_Handle->Init.Parity == USART_PARITY_NONE) )
+	{
+		p16BitsBuffer = (uint16_t*)pBuffer;
+		p8BitsBuffer = NULL;
+	}
+	else
+	{
+		p16BitsBuffer = NULL;
+		p8BitsBuffer = pBuffer;
+	}
+
+
+	while(dataSize > 0)
+	{
+		while( !(USART_GetFlagStatus(USART_Handle, USART_RXNE_FLAG)));
+
+		if( p8BitsBuffer == NULL)
+		{
+			*p16BitsBuffer = (uint16_t)(USART_Handle->Instance->RDR & 0x01FFU);
+			p16BitsBuffer++;
+			dataSize+=2;
+		}
+		else
+		{
+			if( (USART_Handle->Init.WordLength == USART_WORDLENGTH_9Bits) && (USART_Handle->Init.Parity != USART_PARITY_NONE) )
+			{
+				*p8BitsBuffer = USART_Handle->Instance->RDR & 0x00FFU;
+				p8BitsBuffer++;
+				dataSize--;
+			}
+			else if( (USART_Handle->Init.WordLength == USART_WORDLENGTH_8Bits) && (USART_Handle->Init.Parity == USART_PARITY_NONE) )
+			{
+				*p8BitsBuffer = (uint8_t)(USART_Handle->Instance->RDR & 0xFFU);
+				p8BitsBuffer++;
+				dataSize--;
+			}
+			else
+			{
+				*p8BitsBuffer = (uint8_t)(USART_Handle->Instance->RDR & 0x7FU);
+				p8BitsBuffer++;
+				dataSize--;
+			}
+		}
+	}
+}
+
+void USART_TransmitData(USART_HandleTypeDef_t *USART_Handle, uint8_t *pData, uint16_t dataSize);
 
 /*
  *  @brief	USART_GetFlagStatus, return the flag of ISR register

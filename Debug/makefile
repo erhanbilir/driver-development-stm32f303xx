@@ -60,8 +60,8 @@ all: main-build
 main-build: driver_development_stm32f303xx.elf secondary-outputs
 
 # Tool invocations
-driver_development_stm32f303xx.elf driver_development_stm32f303xx.map: $(OBJS) $(USER_OBJS) C:\Users\erhan\STM32CubeIDE\driver_develop_course\driver_development\STM32F303RETX_FLASH.ld makefile objects.list $(OPTIONAL_TOOL_DEPS)
-	arm-none-eabi-gcc -o "driver_development_stm32f303xx.elf" @"objects.list" $(USER_OBJS) $(LIBS) -mcpu=cortex-m4 -T"C:\Users\erhan\STM32CubeIDE\driver_develop_course\driver_development\STM32F303RETX_FLASH.ld" --specs=nosys.specs -Wl,-Map="driver_development_stm32f303xx.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+driver_development_stm32f303xx.elf driver_development_stm32f303xx.map: $(OBJS) $(USER_OBJS) C:\Users\erhan\STM32CubeIDE\driver_develop_course\driver_development_stm32f303xx\STM32F303RETX_FLASH.ld makefile objects.list $(OPTIONAL_TOOL_DEPS)
+	arm-none-eabi-gcc -o "driver_development_stm32f303xx.elf" @"objects.list" $(USER_OBJS) $(LIBS) -mcpu=cortex-m4 -T"C:\Users\erhan\STM32CubeIDE\driver_develop_course\driver_development_stm32f303xx\STM32F303RETX_FLASH.ld" --specs=nosys.specs -Wl,-Map="driver_development_stm32f303xx.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
 	@echo 'Finished building target: $@'
 	@echo ' '
 

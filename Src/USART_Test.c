@@ -13,23 +13,25 @@ static void UART_Config(void);
 
 int main(void)
 {
-	char msg[] = "Hello World!\n\r";
+	char msgToSend[20] = "";
 
 	GPIO_Config();
 	UART_Config();
 
-	USART_TransmitData(&USART_Handle, (uint8_t*)msg, strlen(msg));
+	USART_ReceiveData(&USART_Handle, (uint8_t*)msgToSend, 12);
+	USART_TransmitData(&USART_Handle, (uint8_t*)msgToSend, strlen(msgToSend));
+
 	while(1);
 }
 
 static void UART_Config(void)
 {
-	RCC_USART2_CLK_EN();
+	RCC_USART3_CLK_EN();
 
-	USART_Handle.Instance = USART2;
-	USART_Handle.Init.BaudRate = 9600;
+	USART_Handle.Instance = USART3;
+	USART_Handle.Init.BaudRate = 115200;
 	USART_Handle.Init.HardwareFlowControl = USART_HW_NONE;
-	USART_Handle.Init.Mode = USART_MODE_TX;
+	USART_Handle.Init.Mode = USART_MODE_TX_RX;
 	USART_Handle.Init.OverSampling = USART_OVERSAMPLE_16;
 	USART_Handle.Init.Parity = USART_PARITY_NONE;
 	USART_Handle.Init.StopBits = USART_STOPBITS_1;
@@ -41,16 +43,16 @@ static void UART_Config(void)
 
 static void GPIO_Config(void)
 {
-	GPIO_InitTypeDef_t GPIO_InitStruct = {0};
+	GPIO_InitTypeDef_t GPIO_InitStructB = {0};
 
-	RCC_GPIOA_CLK_EN();
+	RCC_GPIOB_CLK_EN();
 
-	GPIO_InitStruct.Pin = GPIO_PIN_2;
-	GPIO_InitStruct.Mode = GPIO_MODE_AF;
-	GPIO_InitStruct.Otype = GPIO_OTYPE_PP;
-	GPIO_InitStruct.PuPd = GPIO_PUPD_NOPULL;
-	GPIO_InitStruct.Speed = GPIO_OSPEED_HIGH;
-	GPIO_InitStruct.Alternate = GPIO_AF7;
+	GPIO_InitStructB.Pin = GPIO_PIN_10 | GPIO_PIN_11;
+	GPIO_InitStructB.Mode = GPIO_MODE_AF;
+	GPIO_InitStructB.Otype = GPIO_OTYPE_PP;
+	GPIO_InitStructB.PuPd = GPIO_PUPD_NOPULL;
+	GPIO_InitStructB.Speed = GPIO_OSPEED_HIGH;
+	GPIO_InitStructB.Alternate = GPIO_AF7;
 
-	GPIO_Init(GPIOA, &GPIO_InitStruct);
+	GPIO_Init(GPIOB, &GPIO_InitStructB);
 }
