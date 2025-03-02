@@ -15,6 +15,7 @@ static void SPI_CloseISR_TX(SPI_HandleTypeDef_t *SPI_Handle)
 	SPI_Handle->busStateTx = SPI_BUS_FREE;
 }
 
+
 /*
  *  @brief	SPI_CloseISR_RX, Disables the interrupt for reception
  *
@@ -29,6 +30,7 @@ static void SPI_CloseISR_RX(SPI_HandleTypeDef_t *SPI_Handle)
 	SPI_Handle->pRxDataAddr = NULL;
 	SPI_Handle->busStateRx = SPI_BUS_FREE;
 }
+
 
 /*
  *  @brief	SPI_TransmitHelper_16Bits, Stores the user data into the DR register for 16 bits format
@@ -49,6 +51,7 @@ static void SPI_TransmitHelper_16Bits(SPI_HandleTypeDef_t *SPI_Handle)
 	}
 }
 
+
 /*
  *  @brief	SPI_TransmitHelper_8Bits, Stores the user data into the DR register for 8 bits format
  *
@@ -67,6 +70,7 @@ static void SPI_TransmitHelper_8Bits(SPI_HandleTypeDef_t *SPI_Handle)
 		SPI_CloseISR_TX(SPI_Handle);
 	}
 }
+
 
 /*
  *  @brief	SPI_ReceiveHelper_16Bits, Receives the data from DR register
@@ -88,6 +92,7 @@ static void SPI_ReceiveHelper_16Bits(SPI_HandleTypeDef_t *SPI_Handle)
 	}
 }
 
+
 /*
  *  @brief	SPI_ReceiveHelper_8Bits, Receives the data from DR register
  *  		and stores into buffer the user variable for 8 bits format
@@ -107,6 +112,7 @@ static void SPI_ReceiveHelper_8Bits(SPI_HandleTypeDef_t *SPI_Handle)
 		SPI_CloseISR_RX(SPI_Handle);
 	}
 }
+
 
 /*
  *  @brief	SPI_Init, configures the SPI Peripheral
@@ -131,6 +137,7 @@ void SPI_Init(SPI_HandleTypeDef_t *SPI_Handle)
 	SPI_Handle->Instance->CR2 = tempValue;
 }
 
+
 /*
  *  @brief	SPI_PeriphCmd, enable or disable SPI peripheral
  *
@@ -152,6 +159,7 @@ void SPI_PeriphCmd(SPI_HandleTypeDef_t *SPI_Handle, FunctionalState_t stateOfSPI
 	}
 
 }
+
 
 /*
  *  @brief	SPI_TransmitData, transmits data to the slave
@@ -177,6 +185,7 @@ void SPI_TransmitData(SPI_HandleTypeDef_t *SPI_Handle, uint8_t *pData, uint16_t 
 	}
 	while( SPI_GetFlagStatus(SPI_Handle, SPI_BSY_FLAG) & 1); //Wait for busy flag
 }
+
 
 /*
  *  @brief	SPI_TransmitData_IT, transmits data to the external world with Interrupt method
@@ -210,8 +219,8 @@ void SPI_TransmitData_IT(SPI_HandleTypeDef_t *SPI_Handle, uint8_t *pData, uint16
 
 		SPI_Handle->Instance->CR2 |= (0x1U << SPI_CR2_TXEIE);
 	}
-
 }
+
 
 /*
  *  @brief	SPI_InterruptHandler, Provides control for interrupts
@@ -225,16 +234,16 @@ void SPI_InterruptHandler(SPI_HandleTypeDef_t *SPI_Handle)
 	uint8_t interruptSource = 0;
 	uint8_t interruptFlag = 0;
 
-	interruptSource = SPI_Handle->Instance->CR2 & (0x1U << SPI_CR2_RXNEIE);
-	interruptFlag = SPI_Handle->Instance->SR & (0x1U << SPI_SR_RXNE);
+	interruptSource = (SPI_Handle->Instance->CR2 >> SPI_CR2_RXNEIE) & 0x1U;
+	interruptFlag = (SPI_Handle->Instance->SR >> SPI_SR_RXNE) & 0x1U;
 
 	if( (interruptSource != 0) && (interruptFlag != 0) )
 	{
 		SPI_Handle->RxISRFunction(SPI_Handle);
 	}
 
-	interruptSource = SPI_Handle->Instance->CR2 & (0x1U << SPI_CR2_TXEIE);
-	interruptFlag = SPI_Handle->Instance->SR & (0x1U << SPI_SR_TXE);
+	interruptSource = (SPI_Handle->Instance->CR2 >> SPI_CR2_TXEIE) & 0x1U;
+	interruptFlag = (SPI_Handle->Instance->SR >> SPI_SR_TXE) & 0x1U;
 
 	if( (interruptSource != 0) && (interruptFlag != 0) )
 	{

@@ -11,15 +11,22 @@ USART_HandleTypeDef_t USART_Handle;
 static void GPIO_Config();
 static void UART_Config(void);
 
+void USART3_EXTI28_IRQHandler()
+{
+	USART_InterruptHandler(&USART_Handle);
+}
+
 int main(void)
 {
-	char msgToSend[20] = "";
+	char msgToSend[] = "Hey bro how are you?\n\r";
 
 	GPIO_Config();
 	UART_Config();
 
-	USART_ReceiveData(&USART_Handle, (uint8_t*)msgToSend, 12);
-	USART_TransmitData(&USART_Handle, (uint8_t*)msgToSend, strlen(msgToSend));
+	USART_TransmitData_IT(&USART_Handle, (uint8_t*)msgToSend, strlen(msgToSend));
+
+	//USART_ReceiveData(&USART_Handle, (uint8_t*)msgToSend, 12);
+	//USART_TransmitData(&USART_Handle, (uint8_t*)msgToSend, strlen(msgToSend));
 
 	while(1);
 }
@@ -38,6 +45,7 @@ static void UART_Config(void)
 	USART_Handle.Init.WordLength = USART_WORDLENGTH_8Bits;
 
 	USART_Init(&USART_Handle);
+	NVIC_EnableInterrupt(USART3_IRQNumber);
 	USART_PeriphCmd(&USART_Handle, ENABLE);
 }
 

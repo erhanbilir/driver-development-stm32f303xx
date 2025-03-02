@@ -10,6 +10,13 @@
 
 #include <stm32f303xx.h>
 
+typedef enum
+{
+	USART_BUS_FREE 		= 0x0U,
+	USART_BUS_BUSY_TX 	= 0x1U,
+	USART_BUS_BUSY_RX 	= 0x2U
+}USART_BusStatus_t;
+
 /*
  *
  * @def_group MODE_Types
@@ -84,10 +91,14 @@ typedef struct __USART_HandleTypeDef_t
 {
 	USART_TypeDef_t* Instance;
 	USART_InitTypeDef_t Init;
-	uint8_t *pTxBuffer;
+	uint8_t *pTxBufferAddr;
 	uint16_t TxBufferSize;
-	uint8_t TxStatus;
+	uint8_t busStateTx;
 	void(*TxISR_Function)(struct __USART_HandleTypeDef_t *USART_Handle);
+	uint8_t *pRxBufferAddr;
+	uint16_t RxBufferSize;
+	uint8_t busStateRx;
+	void(*RxISR_Function)(struct __USART_HandleTypeDef_t *USART_Handle);
 }USART_HandleTypeDef_t;
 
 void USART_Init(USART_HandleTypeDef_t *USART_Handle);
@@ -96,5 +107,6 @@ void USART_TransmitData(USART_HandleTypeDef_t *USART_Handle, uint8_t *pData, uin
 void USART_ReceiveData(USART_HandleTypeDef_t *USART_Handle, uint8_t *pBuffer, uint16_t dataSize);
 void USART_TransmitData_IT(USART_HandleTypeDef_t *USART_Handle, uint8_t *pData, uint16_t dataSize);
 FlagStatus_t USART_GetFlagStatus(USART_HandleTypeDef_t *USART_Handle, uint16_t USART_Flag);
+void USART_InterruptHandler(USART_HandleTypeDef_t *USART_Handle);
 
 #endif /* INC_USART_H_ */

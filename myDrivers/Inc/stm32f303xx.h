@@ -47,7 +47,10 @@ typedef enum
 	EXTI3_IRQNumber = 9,
 	EXTI15_10_IRQNumber = 40,
 	SPI1_IRQNumber = 35,
-	SPI2_IRQNumber = 36
+	SPI2_IRQNumber = 36,
+	USART1_IRQNumber = 37,
+	USART2_IRQNumber = 38,
+	USART3_IRQNumber = 39
 }IRQNumber_TypeDef_t;
 
 /*
@@ -265,6 +268,14 @@ typedef struct
  * UART/USART Bit Definitions
  */
 #define USART_CR1_ENABLE			(0U)
+#define USART_CR1_ENABLESTOP		(1U)
+#define USART_CR1_RE				(2U)
+#define USART_CR1_TE				(3U)
+#define USART_CR1_IDLEIE			(4U)
+#define USART_CR1_RXNEIE			(5U)
+#define USART_CR1_TCIE				(6U)
+#define USART_CR1_TXEIE				(7U)
+
 #define USART_CR2_STOP 				(12U)
 
 #define USART_ISR_TXE				(7U)

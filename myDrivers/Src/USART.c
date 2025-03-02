@@ -7,6 +7,64 @@
 #include "USART.h"
 
 /*
+ *  @brief	USART_CloseISR_TX, Disables the interrupt for transmission
+ *
+ *  @param	USART_Handle = User config structure
+ *
+ *  @retval None
+ */
+static void USART_CloseISR_TX(USART_HandleTypeDef_t *USART_Handle)
+{
+	USART_Handle->Instance->CR1 &= ~(0x1U << USART_CR1_TXEIE);
+	USART_Handle->TxBufferSize = 0;
+	USART_Handle->pTxBufferAddr = NULL;
+	USART_Handle->busStateTx = USART_BUS_FREE;
+}
+
+
+/*
+ *  @brief	USART_TransmitHelper_16Bits, Stores the user data into the TDR register for 16 bits format
+ *
+ *  @param	USART_Handle = User config structure
+ *
+ *  @retval None
+ */
+static void USART_TransmitHelper_16Bits(USART_HandleTypeDef_t *USART_Handle)
+{
+	uint16_t *p16BitsData = (uint16_t*)USART_Handle->pTxBufferAddr;
+	USART_Handle->Instance->TDR = (uint16_t)( *p16BitsData & (uint16_t)0x01FF );
+	USART_Handle->pTxBufferAddr += sizeof(uint16_t);
+	USART_Handle->TxBufferSize -= 2;
+
+	if(USART_Handle->TxBufferSize == 0)
+	{
+		USART_CloseISR_TX(USART_Handle);
+	}
+}
+
+
+/*
+ *  @brief	USART_TransmitHelper_8Bits, Stores the user data into the TDR register for 8 bits format
+ *
+ *  @param	USART_Handle = User config structure
+ *
+ *  @retval None
+ */
+static void USART_TransmitHelper_8Bits(USART_HandleTypeDef_t *USART_Handle)
+{
+	uint8_t *p8BitsData = (uint8_t*)USART_Handle->pTxBufferAddr;
+	USART_Handle->Instance->TDR = (uint8_t)( *p8BitsData & (uint8_t)0xFF );
+	USART_Handle->pTxBufferAddr += sizeof(uint8_t);
+	USART_Handle->TxBufferSize--;
+
+	if(USART_Handle->TxBufferSize == 0)
+	{
+		USART_CloseISR_TX(USART_Handle);
+	}
+}
+
+
+/*
  *  @brief	USART_PeriphCmd, enable or disable USART peripheral
  *
  *  @param	USART_Handle = User config structure
@@ -15,7 +73,6 @@
  *
  *  @retval None
  */
-
 void USART_PeriphCmd(USART_HandleTypeDef_t *USART_Handle, FunctionalState_t stateOfUSART)
 {
 	if( stateOfUSART == ENABLE)
@@ -28,6 +85,7 @@ void USART_PeriphCmd(USART_HandleTypeDef_t *USART_Handle, FunctionalState_t stat
 	}
 }
 
+
 /*
  *  @brief	USART_Init, configures the USART Peripheral
  *
@@ -35,7 +93,6 @@ void USART_PeriphCmd(USART_HandleTypeDef_t *USART_Handle, FunctionalState_t stat
  *
  *  @retval None
  */
-
 void USART_Init(USART_HandleTypeDef_t *USART_Handle)
 {
 	uint32_t periphClock = 0;
@@ -96,6 +153,7 @@ void USART_Init(USART_HandleTypeDef_t *USART_Handle)
 	USART_Handle->Instance->BRR = tempReg;
 }
 
+
 /*
  *  @brief	USART_TransmitData, transmits data
  *
@@ -107,7 +165,6 @@ void USART_Init(USART_HandleTypeDef_t *USART_Handle)
  *
  *  @retval None
  */
-
 void USART_TransmitData(USART_HandleTypeDef_t *USART_Handle, uint8_t *pData, uint16_t dataSize)
 {
 
@@ -146,6 +203,41 @@ void USART_TransmitData(USART_HandleTypeDef_t *USART_Handle, uint8_t *pData, uin
 	while( !(USART_GetFlagStatus(USART_Handle, USART_TC_FLAG)) );
 }
 
+
+/*
+ *  @brief	USART_TransmitData_IT, transmits data to the external world with Interrupt method
+ *
+ *  @param	USART_Handle = User config structure
+ *
+ *	@param  pData = Address of data to send
+ *
+ *	@param  dataSize = Length of your data in bytes
+ *
+ *  @retval None
+ */
+void USART_TransmitData_IT(USART_HandleTypeDef_t *USART_Handle, uint8_t *pData, uint16_t dataSize)
+{
+	USART_BusStatus_t busState = USART_Handle->busStateTx;
+
+	if(busState != USART_BUS_BUSY_TX)
+	{
+		USART_Handle->pTxBufferAddr = (uint8_t*)pData;
+		USART_Handle->TxBufferSize = (uint16_t)dataSize;
+		USART_Handle->busStateTx = USART_BUS_BUSY_TX;
+
+		if( (USART_Handle->Init.WordLength == USART_WORDLENGTH_9Bits) && (USART_Handle->Init.Parity == USART_PARITY_NONE) )
+		{
+			USART_Handle->TxISR_Function = USART_TransmitHelper_16Bits;
+		}
+		else
+		{
+			USART_Handle->TxISR_Function = USART_TransmitHelper_8Bits;
+		}
+	}
+	USART_Handle->Instance->CR1 |= (0x1U << USART_CR1_TXEIE);
+}
+
+
 /*
  *  @brief	USART_ReceiveData, receives data
  *
@@ -157,7 +249,6 @@ void USART_TransmitData(USART_HandleTypeDef_t *USART_Handle, uint8_t *pData, uin
  *
  *  @retval None
  */
-
 void USART_ReceiveData(USART_HandleTypeDef_t *USART_Handle, uint8_t *pBuffer, uint16_t dataSize)
 {
 	uint16_t *p16BitsBuffer;
@@ -209,7 +300,36 @@ void USART_ReceiveData(USART_HandleTypeDef_t *USART_Handle, uint8_t *pBuffer, ui
 	}
 }
 
-void USART_TransmitData(USART_HandleTypeDef_t *USART_Handle, uint8_t *pData, uint16_t dataSize);
+
+/*
+ *  @brief	USART_InterruptHandler, Provides control for interrupts
+ *
+ *  @param	USART_Handle = User config structure
+ *
+ *  @retval None
+ */
+void USART_InterruptHandler(USART_HandleTypeDef_t *USART_Handle)
+{
+	uint8_t interruptSource = 0;
+	uint8_t interruptFlag = 0;
+
+	interruptSource = (USART_Handle->Instance->CR1 >> USART_CR1_RXNEIE) & 0x1U;
+	interruptFlag = (USART_Handle->Instance->ISR >> USART_ISR_RXNE) & 0x1U;
+
+	if( (interruptSource != 0) && (interruptFlag != 0) )
+	{
+		USART_Handle->RxISR_Function(USART_Handle);
+	}
+
+	interruptSource = (USART_Handle->Instance->CR1 >> USART_CR1_TXEIE) & 0x1U;
+	interruptFlag = (USART_Handle->Instance->ISR >> USART_ISR_TXE) & 0x1U;
+
+	if( (interruptSource != 0) && (interruptFlag != 0) )
+	{
+		USART_Handle->TxISR_Function(USART_Handle);
+	}
+}
+
 
 /*
  *  @brief	USART_GetFlagStatus, return the flag of ISR register
@@ -220,7 +340,6 @@ void USART_TransmitData(USART_HandleTypeDef_t *USART_Handle, uint8_t *pData, uin
  *
  *  @retval FlagStatus_t
  */
-
 FlagStatus_t USART_GetFlagStatus(USART_HandleTypeDef_t *USART_Handle, uint16_t USART_Flag)
 {
 	return (USART_Handle->Instance->ISR & USART_Flag) ? FLAG_SET : FLAG_RESET;

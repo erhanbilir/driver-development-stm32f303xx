@@ -1,4 +1,4 @@
-Src/main.o: ../Src/main.c \
+Src/USART_Test.o: ../Src/USART_Test.c \
  C:/Users/erhan/STM32CubeIDE/driver_develop_course/driver_development_stm32f303xx/myDrivers/Inc/stm32f303xx.h \
  C:/Users/erhan/STM32CubeIDE/driver_develop_course/driver_development_stm32f303xx/myDrivers/Inc/RCC.h \
  C:/Users/erhan/STM32CubeIDE/driver_develop_course/driver_development_stm32f303xx/myDrivers/Inc/GPIO.h \

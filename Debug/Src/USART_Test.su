@@ -1,0 +1,4 @@
+../Src/USART_Test.c:14:6:USART3_EXTI28_IRQHandler	8	static
+../Src/USART_Test.c:19:5:main	40	static
+../Src/USART_Test.c:34:13:UART_Config	16	static
+../Src/USART_Test.c:52:13:GPIO_Config	40	static
