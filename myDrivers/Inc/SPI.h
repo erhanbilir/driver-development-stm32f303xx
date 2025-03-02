@@ -112,6 +112,10 @@ typedef struct __SPI_HandleTypeDef_t
 	uint16_t TxDataSize;
 	uint8_t busStateTx;
 	void(*TxISRFunction)(struct __SPI_HandleTypeDef_t *SPI_Handle);
+	uint8_t *pRxDataAddr;
+	uint16_t RxDataSize;
+	uint8_t busStateRx;
+	void(*RxISRFunction)(struct __SPI_HandleTypeDef_t *SPI_Handle);
 
 }SPI_HandleTypeDef_t;
 
@@ -120,6 +124,7 @@ void SPI_PeriphCmd(SPI_HandleTypeDef_t *SPI_Handle, FunctionalState_t stateOfSPI
 void SPI_TransmitData(SPI_HandleTypeDef_t *SPI_Handle, uint8_t *pData, uint16_t sizeOfData);
 void SPI_ReceiveData(SPI_HandleTypeDef_t *SPI_Handle, uint8_t *pBuffer, uint16_t sizeOfData);
 void SPI_TransmitData_IT(SPI_HandleTypeDef_t *SPI_Handle, uint8_t *pData, uint16_t sizeOfData);
+void SPI_ReceiveData_IT(SPI_HandleTypeDef_t *SPI_Handle, uint8_t *pBuffer, uint16_t sizeOfData);
 void SPI_InterruptHandler(SPI_HandleTypeDef_t *SPI_Handle);
 FlagStatus_t SPI_GetFlagStatus(SPI_HandleTypeDef_t *SPI_Handle, uint16_t SPI_Flag);
 

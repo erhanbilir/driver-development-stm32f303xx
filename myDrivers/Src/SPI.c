@@ -1,5 +1,12 @@
 #include "SPI.h"
 
+/*
+ *  @brief	SPI_CloseISR_TX, Disables the interrupt for transmission
+ *
+ *  @param	SPI_Handle = User config structure
+ *
+ *  @retval None
+ */
 static void SPI_CloseISR_TX(SPI_HandleTypeDef_t *SPI_Handle)
 {
 	SPI_Handle->Instance->CR2 &= ~(0x1U << SPI_CR2_TXEIE);
@@ -8,6 +15,28 @@ static void SPI_CloseISR_TX(SPI_HandleTypeDef_t *SPI_Handle)
 	SPI_Handle->busStateTx = SPI_BUS_FREE;
 }
 
+/*
+ *  @brief	SPI_CloseISR_RX, Disables the interrupt for reception
+ *
+ *  @param	SPI_Handle = User config structure
+ *
+ *  @retval None
+ */
+static void SPI_CloseISR_RX(SPI_HandleTypeDef_t *SPI_Handle)
+{
+	SPI_Handle->Instance->CR2 &= ~(0x1U << SPI_CR2_RXNEIE);
+	SPI_Handle->RxDataSize = 0;
+	SPI_Handle->pRxDataAddr = NULL;
+	SPI_Handle->busStateRx = SPI_BUS_FREE;
+}
+
+/*
+ *  @brief	SPI_TransmitHelper_16Bits, Stores the user data into the DR register for 16 bits format
+ *
+ *  @param	SPI_Handle = User config structure
+ *
+ *  @retval None
+ */
 static void SPI_TransmitHelper_16Bits(SPI_HandleTypeDef_t *SPI_Handle)
 {
 	SPI_Handle->Instance->DR = *( (uint16_t*)(SPI_Handle->pTxDataAddr) );
@@ -20,6 +49,13 @@ static void SPI_TransmitHelper_16Bits(SPI_HandleTypeDef_t *SPI_Handle)
 	}
 }
 
+/*
+ *  @brief	SPI_TransmitHelper_8Bits, Stores the user data into the DR register for 8 bits format
+ *
+ *  @param	SPI_Handle = User config structure
+ *
+ *  @retval None
+ */
 static void SPI_TransmitHelper_8Bits(SPI_HandleTypeDef_t *SPI_Handle)
 {
 	SPI_Handle->Instance->DR = *(uint8_t*)(SPI_Handle->pTxDataAddr );
@@ -33,14 +69,52 @@ static void SPI_TransmitHelper_8Bits(SPI_HandleTypeDef_t *SPI_Handle)
 }
 
 /*
+ *  @brief	SPI_ReceiveHelper_16Bits, Receives the data from DR register
+ *  		and stores into buffer the user variable for 16 bits format
+ *
+ *  @param	SPI_Handle = User config structure
+ *
+ *  @retval None
+ */
+static void SPI_ReceiveHelper_16Bits(SPI_HandleTypeDef_t *SPI_Handle)
+{
+	*( (uint16_t*)SPI_Handle->pRxDataAddr) = *( (__IO uint16_t*)SPI_Handle->Instance->DR);
+	SPI_Handle->pTxDataAddr += sizeof(uint16_t);
+	SPI_Handle->RxDataSize -= 2;
+
+	if(SPI_Handle->RxDataSize == 0)
+	{
+		SPI_CloseISR_RX(SPI_Handle);
+	}
+}
+
+/*
+ *  @brief	SPI_ReceiveHelper_8Bits, Receives the data from DR register
+ *  		and stores into buffer the user variable for 8 bits format
+ *
+ *  @param	SPI_Handle = User config structure
+ *
+ *  @retval None
+ */
+static void SPI_ReceiveHelper_8Bits(SPI_HandleTypeDef_t *SPI_Handle)
+{
+	*( (uint8_t*)SPI_Handle->pRxDataAddr) = *( (__IO uint8_t*)&SPI_Handle->Instance->DR);
+	SPI_Handle->pRxDataAddr += sizeof(uint8_t);
+	SPI_Handle->RxDataSize --;
+
+	if(SPI_Handle->RxDataSize == 0)
+	{
+		SPI_CloseISR_RX(SPI_Handle);
+	}
+}
+
+/*
  *  @brief	SPI_Init, configures the SPI Peripheral
  *
  *  @param	SPI_Handle = User config structure
  *
  *  @retval None
  */
-
-
 void SPI_Init(SPI_HandleTypeDef_t *SPI_Handle)
 {
 	uint32_t tempValue = 0;
@@ -66,7 +140,6 @@ void SPI_Init(SPI_HandleTypeDef_t *SPI_Handle)
  *
  *  @retval None
  */
-
 void SPI_PeriphCmd(SPI_HandleTypeDef_t *SPI_Handle, FunctionalState_t stateOfSPI)
 {
 	if(stateOfSPI == ENABLE)
@@ -79,7 +152,6 @@ void SPI_PeriphCmd(SPI_HandleTypeDef_t *SPI_Handle, FunctionalState_t stateOfSPI
 	}
 
 }
-
 
 /*
  *  @brief	SPI_TransmitData, transmits data to the slave
@@ -106,6 +178,17 @@ void SPI_TransmitData(SPI_HandleTypeDef_t *SPI_Handle, uint8_t *pData, uint16_t 
 	while( SPI_GetFlagStatus(SPI_Handle, SPI_BSY_FLAG) & 1); //Wait for busy flag
 }
 
+/*
+ *  @brief	SPI_TransmitData_IT, transmits data to the external world with Interrupt method
+ *
+ *  @param	SPI_Handle = User config structure
+ *
+ *	@param  pData = Address of data to send
+ *
+ *	@param sizeOfData = Length of your data in bytes
+ *
+ *  @retval None
+ */
 void SPI_TransmitData_IT(SPI_HandleTypeDef_t *SPI_Handle, uint8_t *pData, uint16_t sizeOfData)
 {
 	SPI_BusStatus_t busState = SPI_Handle->busStateTx;
@@ -130,10 +213,25 @@ void SPI_TransmitData_IT(SPI_HandleTypeDef_t *SPI_Handle, uint8_t *pData, uint16
 
 }
 
+/*
+ *  @brief	SPI_InterruptHandler, Provides control for interrupts
+ *
+ *  @param	SPI_Handle = User config structure
+ *
+ *  @retval None
+ */
 void SPI_InterruptHandler(SPI_HandleTypeDef_t *SPI_Handle)
 {
 	uint8_t interruptSource = 0;
 	uint8_t interruptFlag = 0;
+
+	interruptSource = SPI_Handle->Instance->CR2 & (0x1U << SPI_CR2_RXNEIE);
+	interruptFlag = SPI_Handle->Instance->SR & (0x1U << SPI_SR_RXNE);
+
+	if( (interruptSource != 0) && (interruptFlag != 0) )
+	{
+		SPI_Handle->RxISRFunction(SPI_Handle);
+	}
 
 	interruptSource = SPI_Handle->Instance->CR2 & (0x1U << SPI_CR2_TXEIE);
 	interruptFlag = SPI_Handle->Instance->SR & (0x1U << SPI_SR_TXE);
@@ -143,6 +241,7 @@ void SPI_InterruptHandler(SPI_HandleTypeDef_t *SPI_Handle)
 		SPI_Handle->TxISRFunction(SPI_Handle);
 	}
 }
+
 
 /*
  *  @brief	SPI_ReceiveData, receive data from the slave
@@ -168,6 +267,42 @@ void SPI_ReceiveData(SPI_HandleTypeDef_t *SPI_Handle, uint8_t *pBuffer, uint16_t
 	}
 	while( SPI_GetFlagStatus(SPI_Handle, SPI_RXNE_FLAG) & 0);
 }
+
+
+/*
+ *  @brief	SPI_ReceiveData_IT, receive data from external world with Interrupt method
+ *
+ *  @param	SPI_Handle = User config structure
+ *
+ *	@param  pBuffer = Address of data to store the values that I get
+ *
+ *	@param sizeOfData = Length of your data in bytes
+ *
+ *  @retval None
+ */
+void SPI_ReceiveData_IT(SPI_HandleTypeDef_t *SPI_Handle, uint8_t *pBuffer, uint16_t sizeOfData)
+{
+	SPI_BusStatus_t busState = SPI_Handle->busStateRx;
+
+	if(busState != SPI_BUS_BUSY_RX)
+	{
+		SPI_Handle->pRxDataAddr = (uint8_t*)pBuffer;
+		SPI_Handle->RxDataSize = (uint16_t)sizeOfData;
+		SPI_Handle->busStateRx = SPI_BUS_BUSY_RX;
+
+		if( ((SPI_Handle->Instance->CR2 >> SPI_CR2_DS) & 0xFU) == SPI_DATASIZE_16BIT)
+		{
+			SPI_Handle->RxISRFunction = SPI_ReceiveHelper_16Bits;
+		}
+		else
+		{
+			SPI_Handle->RxISRFunction = SPI_ReceiveHelper_8Bits;
+		}
+
+		SPI_Handle->Instance->CR2 |= (0x1U << SPI_CR2_RXNEIE);
+	}
+}
+
 
 /*
  *  @brief	SPI_GetFlagStatus, return the flag of SR register

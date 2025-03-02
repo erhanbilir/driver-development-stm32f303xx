@@ -29,6 +29,7 @@ SPI_HandleTypeDef_t SPI_HandleStructure;
 USART_HandleTypeDef_t USART_Handle;
 
 char msgToSend[] = "Hello Are You There!\n";
+char buffer[64] = { 0 };
 void EXTI15_10_IRQHandler()
 {
 
@@ -60,6 +61,9 @@ int main(void)
 
 	SPI_Config();
 
+	char buffer[64] = { 0 };
+
+	SPI_ReceiveData_IT(&SPI_HandleStructure, (uint8_t*)buffer, sizeof(buffer));
 	//USART_Handle.Instance = USART2;
 	//USART_Handle.Init.BaudRate = 115200;
 
