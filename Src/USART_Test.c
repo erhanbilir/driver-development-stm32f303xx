@@ -19,12 +19,13 @@ void USART3_EXTI28_IRQHandler()
 int main(void)
 {
 	char msgToSend[] = "Hey bro how are you?\n\r";
+	char msgFromReceive[20] = {0};
 
 	GPIO_Config();
 	UART_Config();
 
 	USART_TransmitData_IT(&USART_Handle, (uint8_t*)msgToSend, strlen(msgToSend));
-
+	USART_ReceiveData_IT(&USART_Handle, (uint8_t*)msgFromReceive, 20);
 	//USART_ReceiveData(&USART_Handle, (uint8_t*)msgToSend, 12);
 	//USART_TransmitData(&USART_Handle, (uint8_t*)msgToSend, strlen(msgToSend));
 
