@@ -4,6 +4,7 @@
 "./Startup/startup_stm32f303retx.o"
 "./myDrivers/Src/EXTI.o"
 "./myDrivers/Src/GPIO.o"
+"./myDrivers/Src/I2C.o"
 "./myDrivers/Src/RCC.o"
 "./myDrivers/Src/SPI.o"
 "./myDrivers/Src/USART.o"

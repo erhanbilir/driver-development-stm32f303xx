@@ -358,8 +358,8 @@ Discarded input sections
  .debug_macro   0x0000000000000000       0x10 ./myDrivers/Src/EXTI.o
  .debug_macro   0x0000000000000000       0x35 ./myDrivers/Src/EXTI.o
  .debug_macro   0x0000000000000000       0x20 ./myDrivers/Src/EXTI.o
- .debug_macro   0x0000000000000000      0x3ba ./myDrivers/Src/EXTI.o
- .debug_macro   0x0000000000000000      0x100 ./myDrivers/Src/EXTI.o
+ .debug_macro   0x0000000000000000      0x454 ./myDrivers/Src/EXTI.o
+ .debug_macro   0x0000000000000000      0x124 ./myDrivers/Src/EXTI.o
  .debug_macro   0x0000000000000000      0x11e ./myDrivers/Src/EXTI.o
  .debug_macro   0x0000000000000000       0xdc ./myDrivers/Src/EXTI.o
  .debug_macro   0x0000000000000000       0x88 ./myDrivers/Src/EXTI.o
@@ -428,11 +428,89 @@ Discarded input sections
  .debug_macro   0x0000000000000000       0x10 ./myDrivers/Src/GPIO.o
  .debug_macro   0x0000000000000000       0x35 ./myDrivers/Src/GPIO.o
  .debug_macro   0x0000000000000000       0x20 ./myDrivers/Src/GPIO.o
- .debug_macro   0x0000000000000000      0x3ba ./myDrivers/Src/GPIO.o
- .debug_macro   0x0000000000000000      0x100 ./myDrivers/Src/GPIO.o
+ .debug_macro   0x0000000000000000      0x454 ./myDrivers/Src/GPIO.o
+ .debug_macro   0x0000000000000000      0x124 ./myDrivers/Src/GPIO.o
  .debug_macro   0x0000000000000000       0xb2 ./myDrivers/Src/GPIO.o
  .debug_macro   0x0000000000000000       0xdc ./myDrivers/Src/GPIO.o
  .debug_macro   0x0000000000000000       0x88 ./myDrivers/Src/GPIO.o
+ .group         0x0000000000000000        0xc ./myDrivers/Src/I2C.o
+ .group         0x0000000000000000        0xc ./myDrivers/Src/I2C.o
+ .group         0x0000000000000000        0xc ./myDrivers/Src/I2C.o
+ .group         0x0000000000000000        0xc ./myDrivers/Src/I2C.o
+ .group         0x0000000000000000        0xc ./myDrivers/Src/I2C.o
+ .group         0x0000000000000000        0xc ./myDrivers/Src/I2C.o
+ .group         0x0000000000000000        0xc ./myDrivers/Src/I2C.o
+ .group         0x0000000000000000        0xc ./myDrivers/Src/I2C.o
+ .group         0x0000000000000000        0xc ./myDrivers/Src/I2C.o
+ .group         0x0000000000000000        0xc ./myDrivers/Src/I2C.o
+ .group         0x0000000000000000        0xc ./myDrivers/Src/I2C.o
+ .group         0x0000000000000000        0xc ./myDrivers/Src/I2C.o
+ .group         0x0000000000000000        0xc ./myDrivers/Src/I2C.o
+ .group         0x0000000000000000        0xc ./myDrivers/Src/I2C.o
+ .group         0x0000000000000000        0xc ./myDrivers/Src/I2C.o
+ .group         0x0000000000000000        0xc ./myDrivers/Src/I2C.o
+ .group         0x0000000000000000        0xc ./myDrivers/Src/I2C.o
+ .group         0x0000000000000000        0xc ./myDrivers/Src/I2C.o
+ .group         0x0000000000000000        0xc ./myDrivers/Src/I2C.o
+ .group         0x0000000000000000        0xc ./myDrivers/Src/I2C.o
+ .group         0x0000000000000000        0xc ./myDrivers/Src/I2C.o
+ .group         0x0000000000000000        0xc ./myDrivers/Src/I2C.o
+ .group         0x0000000000000000        0xc ./myDrivers/Src/I2C.o
+ .group         0x0000000000000000        0xc ./myDrivers/Src/I2C.o
+ .group         0x0000000000000000        0xc ./myDrivers/Src/I2C.o
+ .group         0x0000000000000000        0xc ./myDrivers/Src/I2C.o
+ .group         0x0000000000000000        0xc ./myDrivers/Src/I2C.o
+ .group         0x0000000000000000        0xc ./myDrivers/Src/I2C.o
+ .group         0x0000000000000000        0xc ./myDrivers/Src/I2C.o
+ .group         0x0000000000000000        0xc ./myDrivers/Src/I2C.o
+ .text          0x0000000000000000        0x0 ./myDrivers/Src/I2C.o
+ .data          0x0000000000000000        0x0 ./myDrivers/Src/I2C.o
+ .bss           0x0000000000000000        0x0 ./myDrivers/Src/I2C.o
+ .text.I2C_PeriphCmd
+                0x0000000000000000       0x38 ./myDrivers/Src/I2C.o
+ .debug_info    0x0000000000000000      0x185 ./myDrivers/Src/I2C.o
+ .debug_abbrev  0x0000000000000000       0xc8 ./myDrivers/Src/I2C.o
+ .debug_aranges
+                0x0000000000000000       0x20 ./myDrivers/Src/I2C.o
+ .debug_rnglists
+                0x0000000000000000       0x13 ./myDrivers/Src/I2C.o
+ .debug_macro   0x0000000000000000      0x194 ./myDrivers/Src/I2C.o
+ .debug_macro   0x0000000000000000      0xab4 ./myDrivers/Src/I2C.o
+ .debug_macro   0x0000000000000000       0x22 ./myDrivers/Src/I2C.o
+ .debug_macro   0x0000000000000000       0x8e ./myDrivers/Src/I2C.o
+ .debug_macro   0x0000000000000000       0x51 ./myDrivers/Src/I2C.o
+ .debug_macro   0x0000000000000000      0x103 ./myDrivers/Src/I2C.o
+ .debug_macro   0x0000000000000000       0x6a ./myDrivers/Src/I2C.o
+ .debug_macro   0x0000000000000000      0x1df ./myDrivers/Src/I2C.o
+ .debug_macro   0x0000000000000000       0x61 ./myDrivers/Src/I2C.o
+ .debug_macro   0x0000000000000000       0x2a ./myDrivers/Src/I2C.o
+ .debug_macro   0x0000000000000000       0x43 ./myDrivers/Src/I2C.o
+ .debug_macro   0x0000000000000000       0x34 ./myDrivers/Src/I2C.o
+ .debug_macro   0x0000000000000000      0x174 ./myDrivers/Src/I2C.o
+ .debug_macro   0x0000000000000000       0x16 ./myDrivers/Src/I2C.o
+ .debug_macro   0x0000000000000000       0x43 ./myDrivers/Src/I2C.o
+ .debug_macro   0x0000000000000000       0x34 ./myDrivers/Src/I2C.o
+ .debug_macro   0x0000000000000000       0x10 ./myDrivers/Src/I2C.o
+ .debug_macro   0x0000000000000000       0x58 ./myDrivers/Src/I2C.o
+ .debug_macro   0x0000000000000000       0x8e ./myDrivers/Src/I2C.o
+ .debug_macro   0x0000000000000000       0x1c ./myDrivers/Src/I2C.o
+ .debug_macro   0x0000000000000000      0x177 ./myDrivers/Src/I2C.o
+ .debug_macro   0x0000000000000000      0x369 ./myDrivers/Src/I2C.o
+ .debug_macro   0x0000000000000000       0x10 ./myDrivers/Src/I2C.o
+ .debug_macro   0x0000000000000000       0x35 ./myDrivers/Src/I2C.o
+ .debug_macro   0x0000000000000000       0x20 ./myDrivers/Src/I2C.o
+ .debug_macro   0x0000000000000000      0x454 ./myDrivers/Src/I2C.o
+ .debug_macro   0x0000000000000000      0x124 ./myDrivers/Src/I2C.o
+ .debug_macro   0x0000000000000000      0x11e ./myDrivers/Src/I2C.o
+ .debug_macro   0x0000000000000000       0xb2 ./myDrivers/Src/I2C.o
+ .debug_macro   0x0000000000000000       0xdc ./myDrivers/Src/I2C.o
+ .debug_macro   0x0000000000000000       0x88 ./myDrivers/Src/I2C.o
+ .debug_line    0x0000000000000000      0x62d ./myDrivers/Src/I2C.o
+ .debug_str     0x0000000000000000     0xa823 ./myDrivers/Src/I2C.o
+ .comment       0x0000000000000000       0x44 ./myDrivers/Src/I2C.o
+ .debug_frame   0x0000000000000000       0x38 ./myDrivers/Src/I2C.o
+ .ARM.attributes
+                0x0000000000000000       0x34 ./myDrivers/Src/I2C.o
  .group         0x0000000000000000        0xc ./myDrivers/Src/RCC.o
  .group         0x0000000000000000        0xc ./myDrivers/Src/RCC.o
  .group         0x0000000000000000        0xc ./myDrivers/Src/RCC.o
@@ -490,12 +568,12 @@ Discarded input sections
  .debug_macro   0x0000000000000000       0x10 ./myDrivers/Src/RCC.o
  .debug_macro   0x0000000000000000       0x35 ./myDrivers/Src/RCC.o
  .debug_macro   0x0000000000000000       0x20 ./myDrivers/Src/RCC.o
- .debug_macro   0x0000000000000000      0x3ba ./myDrivers/Src/RCC.o
+ .debug_macro   0x0000000000000000      0x454 ./myDrivers/Src/RCC.o
  .debug_macro   0x0000000000000000      0x118 ./myDrivers/Src/RCC.o
  .debug_macro   0x0000000000000000       0xb2 ./myDrivers/Src/RCC.o
  .debug_macro   0x0000000000000000       0xdc ./myDrivers/Src/RCC.o
  .debug_macro   0x0000000000000000       0x88 ./myDrivers/Src/RCC.o
- .debug_macro   0x0000000000000000      0x100 ./myDrivers/Src/RCC.o
+ .debug_macro   0x0000000000000000      0x124 ./myDrivers/Src/RCC.o
  .group         0x0000000000000000        0xc ./myDrivers/Src/SPI.o
  .group         0x0000000000000000        0xc ./myDrivers/Src/SPI.o
  .group         0x0000000000000000        0xc ./myDrivers/Src/SPI.o
@@ -563,7 +641,7 @@ Discarded input sections
                 0x0000000000000000       0x88 ./myDrivers/Src/SPI.o
  .debug_rnglists
                 0x0000000000000000       0x61 ./myDrivers/Src/SPI.o
- .debug_macro   0x0000000000000000      0x18f ./myDrivers/Src/SPI.o
+ .debug_macro   0x0000000000000000      0x19e ./myDrivers/Src/SPI.o
  .debug_macro   0x0000000000000000      0xab4 ./myDrivers/Src/SPI.o
  .debug_macro   0x0000000000000000       0x22 ./myDrivers/Src/SPI.o
  .debug_macro   0x0000000000000000       0x8e ./myDrivers/Src/SPI.o
@@ -588,14 +666,14 @@ Discarded input sections
  .debug_macro   0x0000000000000000       0x10 ./myDrivers/Src/SPI.o
  .debug_macro   0x0000000000000000       0x35 ./myDrivers/Src/SPI.o
  .debug_macro   0x0000000000000000       0x20 ./myDrivers/Src/SPI.o
- .debug_macro   0x0000000000000000      0x3ba ./myDrivers/Src/SPI.o
- .debug_macro   0x0000000000000000      0x100 ./myDrivers/Src/SPI.o
+ .debug_macro   0x0000000000000000      0x454 ./myDrivers/Src/SPI.o
+ .debug_macro   0x0000000000000000      0x124 ./myDrivers/Src/SPI.o
  .debug_macro   0x0000000000000000      0x11e ./myDrivers/Src/SPI.o
  .debug_macro   0x0000000000000000       0xb2 ./myDrivers/Src/SPI.o
  .debug_macro   0x0000000000000000       0x88 ./myDrivers/Src/SPI.o
  .debug_macro   0x0000000000000000       0xd6 ./myDrivers/Src/SPI.o
- .debug_line    0x0000000000000000      0x951 ./myDrivers/Src/SPI.o
- .debug_str     0x0000000000000000     0xa6bc ./myDrivers/Src/SPI.o
+ .debug_line    0x0000000000000000      0x95a ./myDrivers/Src/SPI.o
+ .debug_str     0x0000000000000000     0xaadd ./myDrivers/Src/SPI.o
  .comment       0x0000000000000000       0x44 ./myDrivers/Src/SPI.o
  .debug_frame   0x0000000000000000      0x224 ./myDrivers/Src/SPI.o
  .ARM.attributes
@@ -663,8 +741,8 @@ Discarded input sections
  .debug_macro   0x0000000000000000       0x10 ./myDrivers/Src/USART.o
  .debug_macro   0x0000000000000000       0x35 ./myDrivers/Src/USART.o
  .debug_macro   0x0000000000000000       0x20 ./myDrivers/Src/USART.o
- .debug_macro   0x0000000000000000      0x3ba ./myDrivers/Src/USART.o
- .debug_macro   0x0000000000000000      0x100 ./myDrivers/Src/USART.o
+ .debug_macro   0x0000000000000000      0x454 ./myDrivers/Src/USART.o
+ .debug_macro   0x0000000000000000      0x124 ./myDrivers/Src/USART.o
  .debug_macro   0x0000000000000000      0x11e ./myDrivers/Src/USART.o
  .debug_macro   0x0000000000000000       0xb2 ./myDrivers/Src/USART.o
  .debug_macro   0x0000000000000000       0xdc ./myDrivers/Src/USART.o
@@ -918,6 +996,7 @@ LOAD ./Src/sysmem.o
 LOAD ./Startup/startup_stm32f303retx.o
 LOAD ./myDrivers/Src/EXTI.o
 LOAD ./myDrivers/Src/GPIO.o
+LOAD ./myDrivers/Src/I2C.o
 LOAD ./myDrivers/Src/RCC.o
 LOAD ./myDrivers/Src/SPI.o
 LOAD ./myDrivers/Src/USART.o
@@ -1326,67 +1405,67 @@ LOAD C:/ST/STM32CubeIDE_1.13.1/STM32CubeIDE/plugins/com.st.stm32cube.ide.mcu.ext
  .debug_rnglists
                 0x00000000000000af       0x65 ./myDrivers/Src/USART.o
 
-.debug_macro    0x0000000000000000     0x2a50
- .debug_macro   0x0000000000000000      0x185 ./Src/USART_Test.o
- .debug_macro   0x0000000000000185      0xab4 ./Src/USART_Test.o
- .debug_macro   0x0000000000000c39       0x22 ./Src/USART_Test.o
- .debug_macro   0x0000000000000c5b       0x8e ./Src/USART_Test.o
- .debug_macro   0x0000000000000ce9       0x51 ./Src/USART_Test.o
- .debug_macro   0x0000000000000d3a      0x103 ./Src/USART_Test.o
- .debug_macro   0x0000000000000e3d       0x6a ./Src/USART_Test.o
- .debug_macro   0x0000000000000ea7      0x1df ./Src/USART_Test.o
- .debug_macro   0x0000000000001086       0x61 ./Src/USART_Test.o
- .debug_macro   0x00000000000010e7       0x2a ./Src/USART_Test.o
- .debug_macro   0x0000000000001111       0x43 ./Src/USART_Test.o
- .debug_macro   0x0000000000001154       0x34 ./Src/USART_Test.o
- .debug_macro   0x0000000000001188      0x174 ./Src/USART_Test.o
- .debug_macro   0x00000000000012fc       0x16 ./Src/USART_Test.o
- .debug_macro   0x0000000000001312       0x43 ./Src/USART_Test.o
- .debug_macro   0x0000000000001355       0x34 ./Src/USART_Test.o
- .debug_macro   0x0000000000001389       0x10 ./Src/USART_Test.o
- .debug_macro   0x0000000000001399       0x58 ./Src/USART_Test.o
- .debug_macro   0x00000000000013f1       0x8e ./Src/USART_Test.o
- .debug_macro   0x000000000000147f       0x1c ./Src/USART_Test.o
- .debug_macro   0x000000000000149b      0x177 ./Src/USART_Test.o
- .debug_macro   0x0000000000001612      0x369 ./Src/USART_Test.o
- .debug_macro   0x000000000000197b       0x10 ./Src/USART_Test.o
- .debug_macro   0x000000000000198b       0x35 ./Src/USART_Test.o
- .debug_macro   0x00000000000019c0       0x20 ./Src/USART_Test.o
- .debug_macro   0x00000000000019e0      0x3ba ./Src/USART_Test.o
- .debug_macro   0x0000000000001d9a      0x100 ./Src/USART_Test.o
- .debug_macro   0x0000000000001e9a      0x11e ./Src/USART_Test.o
- .debug_macro   0x0000000000001fb8       0xb2 ./Src/USART_Test.o
- .debug_macro   0x000000000000206a       0xdc ./Src/USART_Test.o
- .debug_macro   0x0000000000002146       0x88 ./Src/USART_Test.o
- .debug_macro   0x00000000000021ce      0x18f ./myDrivers/Src/EXTI.o
- .debug_macro   0x000000000000235d       0xac ./myDrivers/Src/EXTI.o
- .debug_macro   0x0000000000002409      0x18f ./myDrivers/Src/GPIO.o
- .debug_macro   0x0000000000002598      0x118 ./myDrivers/Src/GPIO.o
- .debug_macro   0x00000000000026b0      0x18f ./myDrivers/Src/RCC.o
- .debug_macro   0x000000000000283f      0x18f ./myDrivers/Src/USART.o
- .debug_macro   0x00000000000029ce       0x82 ./myDrivers/Src/USART.o
+.debug_macro    0x0000000000000000     0x2b59
+ .debug_macro   0x0000000000000000      0x194 ./Src/USART_Test.o
+ .debug_macro   0x0000000000000194      0xab4 ./Src/USART_Test.o
+ .debug_macro   0x0000000000000c48       0x22 ./Src/USART_Test.o
+ .debug_macro   0x0000000000000c6a       0x8e ./Src/USART_Test.o
+ .debug_macro   0x0000000000000cf8       0x51 ./Src/USART_Test.o
+ .debug_macro   0x0000000000000d49      0x103 ./Src/USART_Test.o
+ .debug_macro   0x0000000000000e4c       0x6a ./Src/USART_Test.o
+ .debug_macro   0x0000000000000eb6      0x1df ./Src/USART_Test.o
+ .debug_macro   0x0000000000001095       0x61 ./Src/USART_Test.o
+ .debug_macro   0x00000000000010f6       0x2a ./Src/USART_Test.o
+ .debug_macro   0x0000000000001120       0x43 ./Src/USART_Test.o
+ .debug_macro   0x0000000000001163       0x34 ./Src/USART_Test.o
+ .debug_macro   0x0000000000001197      0x174 ./Src/USART_Test.o
+ .debug_macro   0x000000000000130b       0x16 ./Src/USART_Test.o
+ .debug_macro   0x0000000000001321       0x43 ./Src/USART_Test.o
+ .debug_macro   0x0000000000001364       0x34 ./Src/USART_Test.o
+ .debug_macro   0x0000000000001398       0x10 ./Src/USART_Test.o
+ .debug_macro   0x00000000000013a8       0x58 ./Src/USART_Test.o
+ .debug_macro   0x0000000000001400       0x8e ./Src/USART_Test.o
+ .debug_macro   0x000000000000148e       0x1c ./Src/USART_Test.o
+ .debug_macro   0x00000000000014aa      0x177 ./Src/USART_Test.o
+ .debug_macro   0x0000000000001621      0x369 ./Src/USART_Test.o
+ .debug_macro   0x000000000000198a       0x10 ./Src/USART_Test.o
+ .debug_macro   0x000000000000199a       0x35 ./Src/USART_Test.o
+ .debug_macro   0x00000000000019cf       0x20 ./Src/USART_Test.o
+ .debug_macro   0x00000000000019ef      0x454 ./Src/USART_Test.o
+ .debug_macro   0x0000000000001e43      0x124 ./Src/USART_Test.o
+ .debug_macro   0x0000000000001f67      0x11e ./Src/USART_Test.o
+ .debug_macro   0x0000000000002085       0xb2 ./Src/USART_Test.o
+ .debug_macro   0x0000000000002137       0xdc ./Src/USART_Test.o
+ .debug_macro   0x0000000000002213       0x88 ./Src/USART_Test.o
+ .debug_macro   0x000000000000229b      0x19e ./myDrivers/Src/EXTI.o
+ .debug_macro   0x0000000000002439       0xac ./myDrivers/Src/EXTI.o
+ .debug_macro   0x00000000000024e5      0x19e ./myDrivers/Src/GPIO.o
+ .debug_macro   0x0000000000002683      0x118 ./myDrivers/Src/GPIO.o
+ .debug_macro   0x000000000000279b      0x19e ./myDrivers/Src/RCC.o
+ .debug_macro   0x0000000000002939      0x19e ./myDrivers/Src/USART.o
+ .debug_macro   0x0000000000002ad7       0x82 ./myDrivers/Src/USART.o
 
-.debug_line     0x0000000000000000     0x2737
- .debug_line    0x0000000000000000      0x6a2 ./Src/USART_Test.o
- .debug_line    0x00000000000006a2       0x7b ./Startup/startup_stm32f303retx.o
- .debug_line    0x000000000000071d      0x742 ./myDrivers/Src/EXTI.o
- .debug_line    0x0000000000000e5f      0x793 ./myDrivers/Src/GPIO.o
- .debug_line    0x00000000000015f2      0x6ee ./myDrivers/Src/RCC.o
- .debug_line    0x0000000000001ce0      0xa57 ./myDrivers/Src/USART.o
+.debug_line     0x0000000000000000     0x2764
+ .debug_line    0x0000000000000000      0x6ab ./Src/USART_Test.o
+ .debug_line    0x00000000000006ab       0x7b ./Startup/startup_stm32f303retx.o
+ .debug_line    0x0000000000000726      0x74b ./myDrivers/Src/EXTI.o
+ .debug_line    0x0000000000000e71      0x79c ./myDrivers/Src/GPIO.o
+ .debug_line    0x000000000000160d      0x6f7 ./myDrivers/Src/RCC.o
+ .debug_line    0x0000000000001d04      0xa60 ./myDrivers/Src/USART.o
 
-.debug_str      0x0000000000000000     0xaa3e
- .debug_str     0x0000000000000000     0xa53b ./Src/USART_Test.o
-                                       0xa75e (size before relaxing)
- .debug_str     0x000000000000a53b       0x2f ./Startup/startup_stm32f303retx.o
+.debug_str      0x0000000000000000     0xae5f
+ .debug_str     0x0000000000000000     0xa95c ./Src/USART_Test.o
+                                       0xab7f (size before relaxing)
+ .debug_str     0x000000000000a95c       0x2f ./Startup/startup_stm32f303retx.o
                                          0x86 (size before relaxing)
- .debug_str     0x000000000000a56a      0x115 ./myDrivers/Src/EXTI.o
-                                       0xa5aa (size before relaxing)
- .debug_str     0x000000000000a67f       0xd3 ./myDrivers/Src/GPIO.o
-                                       0xa4d6 (size before relaxing)
- .debug_str     0x000000000000a752       0xe3 ./myDrivers/Src/RCC.o
-                                       0xa4c8 (size before relaxing)
- .debug_str     0x000000000000a835      0x209 ./myDrivers/Src/USART.o
-                                       0xa76a (size before relaxing)
+ .debug_str     0x000000000000a98b      0x115 ./myDrivers/Src/EXTI.o
+                                       0xa9cb (size before relaxing)
+ .debug_str     0x000000000000aaa0       0xd3 ./myDrivers/Src/GPIO.o
+                                       0xa8f7 (size before relaxing)
+ .debug_str     0x000000000000ab73       0xe3 ./myDrivers/Src/RCC.o
+                                       0xa8e9 (size before relaxing)
+ .debug_str     0x000000000000ac56      0x209 ./myDrivers/Src/USART.o
+                                       0xab8b (size before relaxing)
 
 .debug_frame    0x0000000000000000      0x4e8
  .debug_frame   0x0000000000000000       0x98 ./Src/USART_Test.o

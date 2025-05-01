@@ -218,6 +218,21 @@ typedef struct
 	__IO uint32_t TDR;			/*!< USART transmit data register				Address offset = 0x28 */
 }USART_TypeDef_t;
 
+typedef struct
+{
+	__IO uint32_t CR1;			/*!< I2C control register 1					Address offset = 0x00 */
+	__IO uint32_t CR2;			/*!< I2C control register 2 				Address offset = 0x04 */
+	__IO uint32_t OAR1;			/*!< I2C own address 1 register				Address offset = 0x08 */
+	__IO uint32_t OAR2;			/*!< I2C own address 2 register				Address offset = 0x0C */
+	__IO uint32_t TIMINGR;		/*!< I2C timing register					Address offset = 0x10 */
+	__IO uint32_t TIMEOUTR;		/*!< I2C timeout register					Address offset = 0x14 */
+	__IO uint32_t ISR;			/*!< I2C interrupt and status register		Address offset = 0x14 */
+	__IO uint32_t ICR;			/*!< I2C interrupt flag clear register		Address offset = 0x1C */
+	__IO uint32_t PECR;			/*!< I2C PEC register						Address offset = 0x20 */
+	__IO uint32_t RXDR;			/*!< I2C receive data register				Address offset = 0x24 */
+	__IO uint32_t TXDR;			/*!< I2C transmit data register				Address offset = 0x28 */
+}I2C_TypeDef_t;
+
 /* Bases address definitions of ports */
 
 #define GPIOA						( (GPIO_TypeDef_t *)  (GPIOA_BASE_ADDR) )
@@ -246,6 +261,10 @@ typedef struct
 
 #define UART4						( (USART_TypeDef_t *)  (UART4_BASE_ADDR))
 #define UART5						( (USART_TypeDef_t *)  (UART5_BASE_ADDR))
+
+#define I2C1						( (I2C_TypeDef_t *)		(I2C1_BASE_ADDR) )
+#define I2C2						( (I2C_TypeDef_t *)		(I2C2_BASE_ADDR) )
+#define I2C3						( (I2C_TypeDef_t *)		(I2C3_BASE_ADDR) )
 
 /*
  * SPI Flag and Bit Definitions
@@ -285,6 +304,21 @@ typedef struct
 #define USART_TXE_FLAG				(0x1U << USART_ISR_TXE)
 #define USART_TC_FLAG				(0x1U << USART_ISR_TC)
 #define USART_RXNE_FLAG				(0x1U << USART_ISR_RXNE)
+
+/*
+ * I2C Bit Definitions
+ */
+#define I2C_CR1_ENABLE				(0U)
+#define I2C_CR1_TXIE				(1U)
+#define I2C_CR1_RXIE				(2U)
+#define I2C_CR1_ADDRIE				(3U)
+#define I2C_CR1_NACKIE				(4U)
+#define I2C_CR1_STOPIE				(5U)
+#define I2C_CR1_TCIE				(6U)
+
+#define I2C_CR2_SADD				(0U) /* [9:0] */
+#define I2C_CR2_RD_WRN				(10U)
+#define I2C_CR2_ADD10				(11U)
 
 /*
  * Bit Definitions
@@ -359,10 +393,23 @@ typedef struct
 #define RCC_APB1ENR_UART5EN_Mask	(0x1 << RCC_APB1ENR_UART5EN_Pos)			/* RCC APB1ENR register UART5EN Bit Mask */
 #define RCC_APB1ENR_UART5EN			RCC_APB1ENR_UART5EN_Mask					/* RCC APB1ENR register UART5EN Macro */
 
+#define RCC_APB1ENR_I2C1EN_Pos		(0x15U)										/* RCC APB1ENR register I2C1 Bit Position */
+#define RCC_APB1ENR_I2C1EN_Mask		(0x1 << RCC_APB1ENR_I2C1EN_Pos)				/* RCC APB1ENR register I2C1 Bit Mask */
+#define RCC_APB1ENR_I2C1EN			RCC_APB1ENR_I2C1EN_Mask
+
+#define RCC_APB1ENR_I2C2EN_Pos		(0x16U)										/* RCC APB1ENR register I2C2 Bit Position */
+#define RCC_APB1ENR_I2C2EN_Mask		(0x1 << RCC_APB1ENR_I2C2EN_Pos)				/* RCC APB1ENR register I2C2 Bit Mask */
+#define RCC_APB1ENR_I2C2EN			RCC_APB1ENR_I2C2EN_Mask
+
+#define RCC_APB1ENR_I2C3EN_Pos		(0x1EU)										/* RCC APB1ENR register I2C3 Bit Position */
+#define RCC_APB1ENR_I2C3EN_Mask		(0x1 << RCC_APB1ENR_I2C3EN_Pos)				/* RCC APB1ENR register I2C3 Bit Mask */
+#define RCC_APB1ENR_I2C3EN			RCC_APB1ENR_I2C3EN_Mask
+
 #include "RCC.h"
 #include "GPIO.h"
 #include "EXTI.h"
 #include "SPI.h"
 #include "USART.h"
+#include "I2C.h"
 
 #endif /* INC_STM32F303XX_H_ */

@@ -1,10 +1,3 @@
-/*
- * USART.h
- *
- *  Created on: Dec 8, 2024
- *      Author: erhan
- */
-
 #ifndef INC_USART_H_
 #define INC_USART_H_
 

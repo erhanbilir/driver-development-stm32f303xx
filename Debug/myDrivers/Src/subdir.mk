@@ -7,6 +7,7 @@
 C_SRCS += \
 ../myDrivers/Src/EXTI.c \
 ../myDrivers/Src/GPIO.c \
+../myDrivers/Src/I2C.c \
 ../myDrivers/Src/RCC.c \
 ../myDrivers/Src/SPI.c \
 ../myDrivers/Src/USART.c 
@@ -14,6 +15,7 @@ C_SRCS += \
 OBJS += \
 ./myDrivers/Src/EXTI.o \
 ./myDrivers/Src/GPIO.o \
+./myDrivers/Src/I2C.o \
 ./myDrivers/Src/RCC.o \
 ./myDrivers/Src/SPI.o \
 ./myDrivers/Src/USART.o 
@@ -21,6 +23,7 @@ OBJS += \
 C_DEPS += \
 ./myDrivers/Src/EXTI.d \
 ./myDrivers/Src/GPIO.d \
+./myDrivers/Src/I2C.d \
 ./myDrivers/Src/RCC.d \
 ./myDrivers/Src/SPI.d \
 ./myDrivers/Src/USART.d 
@@ -33,7 +36,7 @@ myDrivers/Src/%.o myDrivers/Src/%.su myDrivers/Src/%.cyclo: ../myDrivers/Src/%.c
 clean: clean-myDrivers-2f-Src
 
 clean-myDrivers-2f-Src:
-	-$(RM) ./myDrivers/Src/EXTI.cyclo ./myDrivers/Src/EXTI.d ./myDrivers/Src/EXTI.o ./myDrivers/Src/EXTI.su ./myDrivers/Src/GPIO.cyclo ./myDrivers/Src/GPIO.d ./myDrivers/Src/GPIO.o ./myDrivers/Src/GPIO.su ./myDrivers/Src/RCC.cyclo ./myDrivers/Src/RCC.d ./myDrivers/Src/RCC.o ./myDrivers/Src/RCC.su ./myDrivers/Src/SPI.cyclo ./myDrivers/Src/SPI.d ./myDrivers/Src/SPI.o ./myDrivers/Src/SPI.su ./myDrivers/Src/USART.cyclo ./myDrivers/Src/USART.d ./myDrivers/Src/USART.o ./myDrivers/Src/USART.su
+	-$(RM) ./myDrivers/Src/EXTI.cyclo ./myDrivers/Src/EXTI.d ./myDrivers/Src/EXTI.o ./myDrivers/Src/EXTI.su ./myDrivers/Src/GPIO.cyclo ./myDrivers/Src/GPIO.d ./myDrivers/Src/GPIO.o ./myDrivers/Src/GPIO.su ./myDrivers/Src/I2C.cyclo ./myDrivers/Src/I2C.d ./myDrivers/Src/I2C.o ./myDrivers/Src/I2C.su ./myDrivers/Src/RCC.cyclo ./myDrivers/Src/RCC.d ./myDrivers/Src/RCC.o ./myDrivers/Src/RCC.su ./myDrivers/Src/SPI.cyclo ./myDrivers/Src/SPI.d ./myDrivers/Src/SPI.o ./myDrivers/Src/SPI.su ./myDrivers/Src/USART.cyclo ./myDrivers/Src/USART.d ./myDrivers/Src/USART.o ./myDrivers/Src/USART.su
 
 .PHONY: clean-myDrivers-2f-Src
 
