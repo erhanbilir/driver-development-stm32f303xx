@@ -1,0 +1,45 @@
+# Ignore build output directories
+/Debug/
+/Release/
+/build/
+
+# Ignore object files and compiler outputs
+*.o
+*.d
+*.elf
+*.hex
+*.bin
+*.map
+
+# STM32CubeIDE and STM32CubeMX generated project files
+*.ioc
+*.launch
+*.log
+*.project
+*.cproject
+*.settings/
+*.mxproject
+*.svd
+
+# IDE-specific folders (Eclipse, VSCode, CLion, etc.)
+.vscode/
+.idea/
+*.swp
+*.swo
+*.DS_Store
+
+# Backup and temporary files
+*~
+*.bak
+*.tmp
+*.user
+
+# Executables and output files
+*.exe
+*.out
+
+# CMake generated files (if CMake is used)
+CMakeFiles/
+CMakeCache.txt
+cmake_install.cmake
+Makefile
